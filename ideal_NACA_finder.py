@@ -12,7 +12,7 @@ METRIC_WEIGHTS = {
 CM_FILTER_THRESHOLD = 0.1  # Maximum acceptable pitching moment (|Cm|)
 
 
-# Function to analyze airfoils and compute performance metrics
+# Function to gather and compute aerodynamic metrics from the csv
 def analyze_airfoils(csv_file):
     df = pd.read_csv(csv_file)
     
