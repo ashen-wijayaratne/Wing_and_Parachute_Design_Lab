@@ -9,5 +9,5 @@ Xfoil699src.zip
 # Ignore output folder
 xfoil_comprehensive_outputs/
 
-# (optional) Ignore ALL .exe files in the project
+# Ignore ALL .exe files in the project
 *.exe
