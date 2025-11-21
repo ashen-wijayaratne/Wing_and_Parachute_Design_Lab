@@ -17,7 +17,7 @@ import csv
 RE = 6914376
 MACH = 0.2535
 ALPHA_START = -4.0
-ALPHA_END = 20.0
+ALPHA_END = 18.0
 ALPHA_STEP = 2.0
 ITER = 80
 TIMEOUT = 120
@@ -32,7 +32,7 @@ FAILED_FILE = OUTDIR / "failed_runs.txt"
 # ---------------------------------------
 
 # Target angles from your experimental data
-TARGET_ANGLES = [-4.0, 0.0, 4.0, 8.0, 12.0, 16.0, 20.0]
+TARGET_ANGLES = [-4.0, -2.0, 0.0, 2.0, 4.0, 6.0, 8.0, 10.0, 12.0, 14.0, 16.0, 18.0]
 
 if XF_PATH is None:
     raise SystemExit("xfoil executable not found in PATH.")
