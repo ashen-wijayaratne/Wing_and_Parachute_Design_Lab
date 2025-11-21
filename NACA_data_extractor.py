@@ -39,7 +39,7 @@ if XF_PATH is None:
 
 M_RANGE = range(2, 7)  # 2 to 6
 P_RANGE = range(2, 7)  # 2 to 6
-TT_RANGE = range(12, 21)  # 12 to 20 - This ensures structural viability while avoiding the severe drag penalties of very thick airfoils 
+TT_RANGE = range(12, 19)  # 12 to 18 - This ensures structural viability while avoiding the severe drag penalties of very thick airfoils 
 
 OUTDIR.mkdir(parents=True, exist_ok=True)
 POLAR_DIR.mkdir(parents=True, exist_ok=True)
