@@ -5,7 +5,7 @@ import numpy as np
 
 # STAGE 1: HARD REQUIREMENTS (Filtering)
 CM_FILTER_THRESHOLD = 0.1  # Maximum acceptable pitching moment (|Cm|)
-CL_MIN_REQUIREMENT = 1.1  # Minimum Cl required at reasonable AoA (0-8°)
+CL_MIN_REQUIREMENT = 1.2  # Minimum Cl required at reasonable AoA (0-8°)
 
 # STAGE 2: OPTIMIZATION WEIGHTS (Updated priorities)
 METRIC_WEIGHTS = {
@@ -51,12 +51,12 @@ def analyze_airfoils(csv_file):
         
         # 5. Stall Characteristics - Weight: 10%
         # Gentle stall = CL doesn't drop sharply after stall
-        # Calculate stall quality: CL at 20° / CL_max (higher is better - gentle stall)
+        # Calculate stall quality: CL at 18° / CL_max (higher is better - gentle stall)
         try:
-            cl_at_20 = airfoil_data[airfoil_data['Alpha'] == 20]['CL'].values[0]
-            stall_quality = cl_at_20 / Cl_max
+            cl_at_18 = airfoil_data[airfoil_data['Alpha'] == 18]['CL'].values[0]
+            stall_quality = cl_at_18 / Cl_max
         except:
-            stall_quality = 0  # If no data at 20°, assume poor stall
+            stall_quality = 0  # If no data at 18°, assume poor stall
         
         # Store results
         airfoil_results[airfoil] = {
@@ -124,7 +124,7 @@ def calculate_scores(airfoil_results):
         Cl_score = (data['Cl_max'] / max_Cl_max) * METRIC_WEIGHTS.get('Cl_max', 0) # Max lift: higher is better
         Cm_score = (min_avg_Cm / data['avg_Cm']) * METRIC_WEIGHTS.get('Cm', 0) if data['avg_Cm'] > 0 else METRIC_WEIGHTS.get('Cm', 0) # Pitching moment: lower avg_Cm is better (inverse mapping)
         Cd_score = (min_Cd_min / data['Cd_min']) * METRIC_WEIGHTS.get('Cd_min', 0) if data['Cd_min'] > 0 else METRIC_WEIGHTS.get('Cd_min', 0) # Minimum drag: lower Cd_min is better (inverse mapping)
-        Stall_score = (data['stall_quality'] / max_stall_quality) * METRIC_WEIGHTS.get('Stall', 0) # Stall behavior: higher is better
+        Stall_score = (data['stall_quality'] / max_stall_quality) * METRIC_WEIGHTS.get('Stall', 0) if max_stall_quality > 0 else 0 # Stall behavior: higher is better
         total_score = L_D_score + Cl_score + Cm_score + Cd_score + Stall_score
 
         scored_airfoils.append({

@@ -14,8 +14,8 @@ import signal
 import csv
 
 # ---------- user-configurable ----------
-RE = 6914376
-MACH = 0.2535
+RE = 6064796
+MACH = 0.2536
 ALPHA_START = -4.0
 ALPHA_END = 18.0
 ALPHA_STEP = 2.0
@@ -37,9 +37,9 @@ TARGET_ANGLES = [-4.0, -2.0, 0.0, 2.0, 4.0, 6.0, 8.0, 10.0, 12.0, 14.0, 16.0, 18
 if XF_PATH is None:
     raise SystemExit("xfoil executable not found in PATH.")
 
-M_RANGE = range(2, 7)  # 2 to 6
-P_RANGE = range(2, 7)  # 2 to 6
-TT_RANGE = range(12, 19)  # 12 to 18 - This ensures structural viability while avoiding the severe drag penalties of very thick airfoils 
+M_RANGE = range(2, 6)  # 2 to 5
+P_RANGE = range(2, 6)  # 2 to 5
+TT_RANGE = range(12, 17)  # 12 to 16 - This ensures structural viability while avoiding the severe drag penalties of very thick airfoils 
 
 OUTDIR.mkdir(parents=True, exist_ok=True)
 POLAR_DIR.mkdir(parents=True, exist_ok=True)
