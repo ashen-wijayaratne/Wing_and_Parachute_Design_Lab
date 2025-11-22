@@ -14,7 +14,7 @@ import signal
 import csv
 
 # ---------- user-configurable ------------------------------------
-RE = 6064796
+RE = 6297342
 MACH = 0.2536
 ALPHA_START = -4.0
 ALPHA_END = 18.0
