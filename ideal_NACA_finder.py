@@ -5,7 +5,7 @@ import numpy as np
 
 # STAGE 1: HARD REQUIREMENTS (Filtering)
 CM_FILTER_THRESHOLD = 0.1  # Maximum acceptable pitching moment (|Cm|)
-CL_MIN_REQUIREMENT = 1.2  # Minimum Cl required at reasonable AoA (0-8°)
+CL_MIN_REQUIREMENT = 1.2  # Minimum Cl required at reasonable AoA for landing/takeoff (0-8°)
 
 # STAGE 2: OPTIMIZATION WEIGHTS (Updated priorities)
 METRIC_WEIGHTS = {
