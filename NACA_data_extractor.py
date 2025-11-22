@@ -29,6 +29,9 @@ OUTDIR = Path("xfoil_comprehensive_outputs")
 POLAR_DIR = OUTDIR / "polars"
 RESULTS_CSV = OUTDIR / "airfoil_data.csv"
 FAILED_FILE = OUTDIR / "failed_runs.txt"
+
+# Minimum number of data points required (changed from requiring all 12)
+MIN_DATA_POINTS = 10
 # ---------------------------------------
 
 # Target angles from your experimental data
@@ -37,9 +40,9 @@ TARGET_ANGLES = [-4.0, -2.0, 0.0, 2.0, 4.0, 6.0, 8.0, 10.0, 12.0, 14.0, 16.0, 18
 if XF_PATH is None:
     raise SystemExit("xfoil executable not found in PATH.")
 
-M_RANGE = range(2, 6)  # 2 to 5
-P_RANGE = range(2, 6)  # 2 to 5
-TT_RANGE = range(12, 17)  # 12 to 16 - This ensures structural viability while avoiding the severe drag penalties of very thick airfoils 
+M_RANGE = range(2, 7)  # 2 to 6
+P_RANGE = range(2, 7)  # 2 to 6
+TT_RANGE = range(12, 19)  # 12 to 18 - This ensures structural viability while avoiding the severe drag penalties of very thick airfoils 
 
 OUTDIR.mkdir(parents=True, exist_ok=True)
 POLAR_DIR.mkdir(parents=True, exist_ok=True)
@@ -113,10 +116,14 @@ def run_single(foil_code: str):
         print(f"Error parsing {foil_code}: {e}")
         return (foil_code, None)
 
-    # Check if we got data for all target angles
-    if len(airfoil_data) != len(TARGET_ANGLES):
-        print(f"Warning: {foil_code} only has data for {len(airfoil_data)}/{len(TARGET_ANGLES)} target angles")
+    # Check if we have enough data points (changed from requiring all 12)
+    if len(airfoil_data) < MIN_DATA_POINTS:
+        print(f"Warning: {foil_code} only has {len(airfoil_data)}/{len(TARGET_ANGLES)} target angles (minimum {MIN_DATA_POINTS} required)")
         return (foil_code, None)
+    
+    # If we have at least MIN_DATA_POINTS but not all, note it
+    if len(airfoil_data) < len(TARGET_ANGLES):
+        print(f"Note: {foil_code} has {len(airfoil_data)}/{len(TARGET_ANGLES)} angles (partial data accepted)")
 
     return (foil_code, airfoil_data)
 
