@@ -2,10 +2,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 from pathlib import Path
 
-# NACA 3213 Parameters
-m = 0.03    # Maximum camber (3% of chord)
-p = 0.2     # Position of maximum camber (20% of chord)
-t = 0.13    # Maximum thickness (13% of chord)
+# User Configurable NACA Parameters
+m = 0.03    # Maximum camber (% of chord)
+p = 0.2     # Position of maximum camber (% of chord)
+t = 0.13    # Maximum thickness (% of chord)
 c = 1.0     # Chord length (normalized)
 
 # Generate x-coordinates using cosine spacing for better resolution near leading edge
@@ -108,7 +108,7 @@ ax.text(x_max_thickness + 0.015*c, (y_top_thickness + y_bot_thickness)/2,
         bbox=dict(boxstyle='round,pad=0.3', facecolor='white', alpha=0.9))
 
 # Add title and specifications
-title_text = "NACA 3213 Airfoil — Technical Diagram"
+title_text = f"NACA {int(m*100)}{int(p*10)}{int(t*100)} Airfoil — Technical Diagram"
 ax.text(0.70*c, 0.20*c, title_text, fontsize=16, fontweight='bold', ha='left')
 
 specs_text = (f"Specifications:\n"
