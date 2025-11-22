@@ -179,10 +179,6 @@ def main():
         print(f"     - Cm:      {airfoil['Component_Scores']['Cm']:.2f} (avg |Cm|: {airfoil['avg_Cm']:.4f})")
         print(f"     - Cd_min:  {airfoil['Component_Scores']['Cd_min']:.2f} (value: {airfoil['Cd_min']:.5f})")
         print(f"     - Stall:   {airfoil['Component_Scores']['Stall']:.2f} (quality: {airfoil['stall_quality']:.3f})")
-        
-        print(f"   Component Scores:")
-        for metric, score in airfoil['Component_Scores'].items():
-            print(f"     - {metric}: {score:.2f}")
 
     print("\n" + "="*80)
     print(" Thank you for using the Ideal NACA Airfoil Finder! - Ashen Wijayaratne ")
