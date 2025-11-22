@@ -13,7 +13,7 @@ import sys
 import signal
 import csv
 
-# ---------- user-configurable ----------
+# ---------- user-configurable ------------------------------------
 RE = 6064796
 MACH = 0.2536
 ALPHA_START = -4.0
@@ -32,7 +32,6 @@ FAILED_FILE = OUTDIR / "failed_runs.txt"
 
 # Minimum number of data points required (changed from requiring all 12)
 MIN_DATA_POINTS = 10
-# ---------------------------------------
 
 # Target angles from your experimental data
 TARGET_ANGLES = [-4.0, -2.0, 0.0, 2.0, 4.0, 6.0, 8.0, 10.0, 12.0, 14.0, 16.0, 18.0]
@@ -43,6 +42,7 @@ if XF_PATH is None:
 M_RANGE = range(2, 7)  # 2 to 6
 P_RANGE = range(2, 7)  # 2 to 6
 TT_RANGE = range(12, 19)  # 12 to 18 - This ensures structural viability while avoiding the severe drag penalties of very thick airfoils 
+# ------------------------------------------------------------------
 
 OUTDIR.mkdir(parents=True, exist_ok=True)
 POLAR_DIR.mkdir(parents=True, exist_ok=True)
