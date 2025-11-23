@@ -11,6 +11,7 @@ xfoil_comprehensive_outputs/
 
 #Ignore specific analysis results file
 xflr5_analysis_results.csv
+taper_ratio_results.csv
 
 # Ignore ALL .exe files in the project
 *.exe
