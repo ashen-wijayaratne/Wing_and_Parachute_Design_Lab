@@ -8,6 +8,8 @@ Xfoil699src.zip
 
 # Ignore output folder
 xfoil_comprehensive_outputs/
+Landing_Data/
+Take_off_Data/
 
 #Ignore specific analysis results file
 xflr5_analysis_results.csv
