@@ -208,16 +208,29 @@ class ImprovedFlapAnalyzer:
         max_realistic_LD = 35
         scores['efficiency'] = 100 * min(optimal_op['LD'] / max_realistic_LD, 1.2)
         
-        # Alpha quality scoring (20%)
-        if optimal_op['in_preferred_range']:
-            pref_range = req['preferred_alpha_max'] - req['preferred_alpha_min']
-            alpha_position = (optimal_op['alpha'] - req['preferred_alpha_min']) / pref_range
-            scores['alpha_quality'] = 100 * (1 - alpha_position * 0.3)
-        elif optimal_op['alpha'] < req['preferred_alpha_min']:
-            scores['alpha_quality'] = 110
+        # Alpha quality scoring
+        # Heavier penalty for landing phase when operating alpha is outside preferred range.
+        pref_min = req['preferred_alpha_min']
+        pref_max = req['preferred_alpha_max']
+        alpha = optimal_op['alpha']
+
+        landing_penalty_factor = 80.0   # example: lose 80 points per degree outside preferred range
+        other_penalty_factor = 20.0     # example for takeoff or other phases
+
+        penalty_factor = landing_penalty_factor if phase == 'landing' else other_penalty_factor
+
+        if pref_min <= alpha <= pref_max:
+            pref_range = max(pref_max - pref_min, 1e-6)
+            alpha_position = (alpha - pref_min) / pref_range
+            scores['alpha_quality'] = 100 * (1 - alpha_position * 0.15)
         else:
-            excess = optimal_op['alpha'] - req['preferred_alpha_max']
-            scores['alpha_quality'] = max(30, 100 - excess * 20)
+            if alpha < pref_min:
+                dist = pref_min - alpha
+            else:
+                dist = alpha - pref_max
+
+            raw_score = 100 - dist * penalty_factor
+            scores['alpha_quality'] = max(0.0, min(110.0, raw_score))
         
         # Stall margin scoring (15%)
         if safe_stall_margin:
